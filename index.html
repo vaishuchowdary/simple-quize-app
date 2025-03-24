@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Quiz App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #18b7e7;
+        }
+
+        .quiz-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        .question {
+            display: none;
+        }
+
+        .question.active {
+            display: block;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .options {
+            margin: 15px 0;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #result {
+            display: none;
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <h1>Simple Quiz App</h1>
+
+        <div id="q1" class="question active">
+            <p>1. What is 2 + 2?</p>
+            <div class="options">
+                <button onclick="checkAnswer(1, '4')">4</button>
+                <button onclick="checkAnswer(1, '5')">5</button>
+                <button onclick="checkAnswer(1, '6')">6</button>
+            </div>
+        </div>
+
+        <div id="q2" class="question">
+            <p>2. What color is the sky?</p>
+            <div class="options">
+                <button onclick="checkAnswer(2, 'Blue')">Blue</button>
+                <button onclick="checkAnswer(2, 'Red')">Red</button>
+                <button onclick="checkAnswer(2, 'Green')">Green</button>
+            </div>
+        </div>
+
+        <div id="q3" class="question">
+            <p>3. How many days in a week?</p>
+            <div class="options">
+                <button onclick="checkAnswer(3, '7')">7</button>
+                <button onclick="checkAnswer(3, '6')">6</button>
+                <button onclick="checkAnswer(3, '8')">8</button>
+            </div>
+        </div>
+
+        <div id="q4" class="question">
+            <p>4. What is the capital of France?</p>
+            <div class="options">
+                <button onclick="checkAnswer(4, 'Paris')">Paris</button>
+                <button onclick="checkAnswer(4, 'London')">London</button>
+                <button onclick="checkAnswer(4, 'Berlin')">Berlin</button>
+            </div>
+        </div>
+
+        <div id="q5" class="question">
+            <p>5. What is 10 × 5?</p>
+            <div class="options">
+                <button onclick="checkAnswer(5, '50')">50</button>
+                <button onclick="checkAnswer(5, '45')">45</button>
+                <button onclick="checkAnswer(5, '55')">55</button>
+            </div>
+        </div>
+
+        <div id="q6" class="question">
+            <p>6. Which planet is known as the Red Planet?</p>
+            <div class="options">
+                <button onclick="checkAnswer(6, 'Mars')">Mars</button>
+                <button onclick="checkAnswer(6, 'Jupiter')">Jupiter</button>
+                <button onclick="checkAnswer(6, 'Venus')">Venus</button>
+            </div>
+        </div>
+
+        <div id="q7" class="question">
+            <p>7. How many continents are there?</p>
+            <div class="options">
+                <button onclick="checkAnswer(7, '7')">7</button>
+                <button onclick="checkAnswer(7, '6')">6</button>
+                <button onclick="checkAnswer(7, '8')">8</button>
+            </div>
+        </div>
+
+        <div id="q8" class="question">
+            <p>8. What gas do plants need?</p>
+            <div class="options">
+                <button onclick="checkAnswer(8, 'Carbon Dioxide')">Carbon Dioxide</button>
+                <button onclick="checkAnswer(8, 'Oxygen')">Oxygen</button>
+                <button onclick="checkAnswer(8, 'Nitrogen')">Nitrogen</button>
+            </div>
+        </div>
+
+        <div id="q9" class="question">
+            <p>9. What is H2O?</p>
+            <div class="options">
+                <button onclick="checkAnswer(9, 'Water')">Water</button>
+                <button onclick="checkAnswer(9, 'Salt')">Salt</button>
+                <button onclick="checkAnswer(9, 'Sugar')">Sugar</button>
+            </div>
+        </div>
+
+        <div id="q10" class="question">
+            <p>10. How many months in a year?</p>
+            <div class="options">
+                <button onclick="checkAnswer(10, '12')">12</button>
+                <button onclick="checkAnswer(10, '11')">11</button>
+                <button onclick="checkAnswer(10, '13')">13</button>
+            </div>
+        </div>
+
+        <div id="result"></div>
+    </div>
+
+    <script>
+        let score = 0;
+        const correctAnswers = {
+            1: '4',
+            2: 'Blue',
+            3: '7',
+            4: 'Paris',
+            5: '50',
+            6: 'Mars',
+            7: '7',
+            8: 'Carbon Dioxide',
+            9: 'Water',
+            10: '12'
+        };
+
+        function checkAnswer(questionNum, answer) {
+            const currentQuestion = document.getElementById(`q${questionNum}`);
+            if (answer === correctAnswers[questionNum]) {
+                score++;
+            }
+
+            currentQuestion.classList.remove('active');
+            
+            if (questionNum < 10) {
+                const nextQuestion = document.getElementById(`q${questionNum + 1}`);
+                nextQuestion.classList.add('active');
+            } else {
+                showResult();
+            }
+        }
+
+        function showResult() {
+            const resultDiv = document.getElementById('result');
+            resultDiv.style.display = 'block';
+            resultDiv.innerHTML = `Quiz Completed! Your score: ${score}/10`;
+            document.querySelector('.quiz-container').children[0].style.display = 'none'; // Hide title
+        }
+    </script>
+</body>
+</html>
